@@ -1,0 +1,40 @@
+#lb-email,#lb-pass,#lb-pass2,#lb-name {
+text-align: left !important;
+}
+.calcel-offset {
+    margin-left: 2% !important;
+}
+.custum-container-login {
+    width: 50% !important;
+    flex: 0 0 50;
+    max-width: 50% !important;
+}
+.cancel-md-6 {
+    flex: 0 0 50%;
+    max-width: 100% !important;
+}
+.forget-pass {
+    display: flex;
+    justify-content: flex-end;
+}
+.log-btn {
+    margin-top: -62px;
+}
+.custum-log-form {
+    margin-top: 7vh;
+}
+.cancel-md-4 {
+    margin-left: 37.9%;
+}
+.nav-tabs {
+     border-bottom:none ;
+}
+.add-mr-left {
+    margin-left: 15px
+}
+.adapte-mr-l-home {
+    margin-left: -15px !important;
+}
+button a {
+    color: #fff !important;
+}
