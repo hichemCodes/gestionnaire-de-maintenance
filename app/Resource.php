@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Resource extends Model
 {
+    protected $fillable = [];
+
     public function localisation()
     {
         return $this->belongsTo(Localisation::class);
@@ -16,7 +18,7 @@ class Resource extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function amolalies()
+    public function anomalies()
     {
         return $this->hasMany(Anomalie::class);
     }

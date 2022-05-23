@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+<title>Resources | Gestionnaire de maintenance</title>
+@endsection
+
 @section('content')
 
 <div class="container">
@@ -16,6 +20,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('anomalies') }}"  id="profile-tab"  role="tab" aria-controls="profile" aria-selected="false">Anomalies</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('add-resource') }}"  id="profile-tab"  role="tab" aria-controls="profile" aria-selected="false">Ajouter une resource</a>
+            </li>
         </ul>
 
 
@@ -27,6 +34,9 @@
               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
               <div class="e-table">
                 <div class="table-responsive table-lg mt-3">
+                @if(count($resources) === 0)
+                    <p>Aucune resource trouvée</p>
+                @else
                 <table class="table table-bordered">
                   <thead>
                     <tr>
@@ -35,13 +45,13 @@
                       <th class="max-width">Localisation</th>
                       <th class="max-width">Responsable de maintence</th>
                       <th class="max-width"> Liste d'anomalie </th>
-                      <th class="max-width"> Action</th>
+                      <th class="max-width"> Actions </th>
                     </tr>
                   </thead>
                   <tbody>
                 @foreach($resources as $resource)
                     <tr>
-                      <td>{{$resource->id}}</td>
+                      <td><p>{{$resource->id}}</p></td>
                       <td class="align-middle">
                         <p>{{$resource->desciption}}  </p>
                       </td>
@@ -49,23 +59,27 @@
                       <td class="text-nowrap align-middle">{{$resource->localisation->nom}}</td>
                       <td class="text-nowrap align-middle">{{$resource->responsable->name}}</td>
 
-                      <td class="text-nowrap align-middle"><span>
-                        <div class="col d-flex justify-content-center">
-                          <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#user-form-modal1">
-
-                                <a href=" {{route('rapport',[$resource->id])}}">afficher le rapport d’anomalie.</a>
-                          </button>
-                        </div>
-                      </span></td>
                       <td class="text-center align-middle">
-                        <button class="btn btn-sm btn-outline-secondary badge" type="button"><i class="fas fa-trash-alt"></i></button>
-                     </td>
+                                @foreach($resource->anomalies as $anomalie)
+                                    <p>{{ $anomalie->nom }}</p>
+                                @endforeach
+                      </td>
+                      <td class="text-center align-middle">
+                      <a href=" {{route('codeQr',[$resource->id])}}">
+                            <button type="button" class="btn btn-primary">
+                                Code QR
+                            </button>
+                        </a>
+
+
+                      </td>
 
                     </tr>
                 @endforeach
 
                   </tbody>
                 </table>
+                @endif
                 </div>
 
               </div>

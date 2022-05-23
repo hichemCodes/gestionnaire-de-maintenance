@@ -19,8 +19,8 @@ class CreateResourcesTable extends Migration
             $table->string('url');
             $table->foreignId('localisation_id');
             $table->foreignId('responsable_id');
-            $table->foreign('responsable_id')->references('id')->on('users');
-            $table->foreign('localisation_id')->references('id')->on('localisations');
+            $table->foreign('responsable_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('localisation_id')->references('id')->on('localisations')->onDelete('cascade');
             $table->timestamps();
         });
     }

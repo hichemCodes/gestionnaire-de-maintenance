@@ -19,7 +19,7 @@ class CreateAnomaliesTable extends Migration
             $table->string('description');
             $table->boolean(('is_closed'))->default(false);
             $table->foreignId('localisation_id');
-            $table->foreign('localisation_id')->references('id')->on('localisations');
+            $table->foreign('localisation_id')->references('id')->on('localisations')->onDelete('cascade');
             $table->timestamps();
         });
     }

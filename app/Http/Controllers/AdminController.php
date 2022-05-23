@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+
 
 class AdminController extends Controller
 {
@@ -25,9 +28,27 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    protected function create(Request $request)
     {
-        //
+
+        //validation
+        $validatedData = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+        if($validatedData) {
+            $newUser = new User();
+
+            $newUser->name = $request['name'];
+            $newUser->email = $request['email'];
+            $newUser->password = Hash::make($request['password']);
+            $newUser->role = 'responsable';
+
+            $newUser->save();
+        }
+
+        return redirect()->back();
     }
 
     /**
@@ -84,7 +105,6 @@ class AdminController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-        dd($user);
         $user->delete();
         return redirect('/admin');
     }

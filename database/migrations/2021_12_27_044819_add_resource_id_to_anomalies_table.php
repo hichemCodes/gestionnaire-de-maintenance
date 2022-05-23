@@ -15,7 +15,7 @@ class AddResourceIdToAnomaliesTable extends Migration
     {
         Schema::table('anomalies', function (Blueprint $table) {
             $table->foreignId('resource_id');
-            $table->foreign('resource_id')->references('id')->on('resources');
+            $table->foreign('resource_id')->references('id')->on('resources')->onDelete('cascade');
         });
     }
 
